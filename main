@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Fundamentals of Argumentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .slide {
+            display: none;
+        }
+        .slide.active {
+            display: flex;
+        }
+        /* Custom animation for slide transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        /* Custom styles for activity text areas */
+        textarea {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            color: white;
+            resize: vertical;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white h-full flex flex-col items-center justify-center p-4 antialiased">
+
+    <div id="presentation-container" class="w-full max-w-5xl h-[90vh] max-h-[700px] bg-gray-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+        <!-- Slides will be injected here by JS -->
+    </div>
+
+    <!-- Navigation -->
+    <div class="w-full max-w-5xl mt-4 flex justify-between items-center">
+        <button id="prevBtn" class="bg-gray-700 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">Previous</button>
+        <div id="slide-counter" class="text-gray-400 text-sm font-medium">Slide 1 / 12</div>
+        <button id="nextBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">Next</button>
+    </div>
+
+    <script>
+        const slidesData = [
+            // Slide 1: Title
+            {
+                content: `
+                    <div class="w-full flex flex-col items-center justify-center text-center p-8">
+                        <div class="flex items-center gap-6 mb-8">
+                            <div class="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center font-bold text-blue-400 text-lg">SECSS</div>
+                            <div class="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M12 22V2L2 7l10 5 10-5-10 5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                            </div>
+                        </div>
+                        <h1 class="text-5xl md:text-6xl font-bold text-blue-400 tracking-tight">The Fundamentals of Argumentation</h1>
+                        <p class="mt-4 text-xl md:text-2xl text-gray-300">Building a Case & Engaging with a Global Issue</p>
+                        <div class="mt-12 border-t border-gray-600 pt-6">
+                            <p class="text-lg text-gray-400">Presented by: <span class="font-semibold text-white">Your Co-Presidents</span></p>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 2: Why We Debate
+            {
+                content: `
+                    <div class="w-full grid md:grid-cols-2 gap-8 items-center p-12">
+                        <div class="flex flex-col justify-center">
+                            <h2 class="text-4xl font-bold text-blue-400 mb-6">It’s Not About Winning. <br>It’s About Thinking.</h2>
+                            <ul class="space-y-4 text-lg text-gray-300">
+                                <li class="flex items-start"><span class="text-blue-400 mr-3 mt-1">&#10148;</span>To build a structured, logical case for a belief.</li>
+                                <li class="flex items-start"><span class="text-blue-400 mr-3 mt-1">&#10148;</span>To identify weaknesses in our own thinking and in the thinking of others.</li>
+                                <li class="flex items-start"><span class="text-blue-400 mr-3 mt-1">&#10148;</span>To engage with complex ideas in a way that is organized, respectful, and productive.</li>
+                            </ul>
+                        </div>
+                         <div class="flex items-center justify-center">
+                            <img src="https://placehold.co/600x400/1f2937/9ca3af?text=Respectful+Conversation&font=inter" alt="Two people in a thoughtful conversation" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 3: What is a Formal Debate?
+            {
+                content: `
+                    <div class="w-full flex flex-col items-center justify-center text-center p-12">
+                        <h2 class="text-4xl font-bold text-blue-400 mb-8">What is a Formal Debate?</h2>
+                        <div class="flex items-center justify-center w-full my-8">
+                            <div class="text-center p-4 bg-gray-700 rounded-lg shadow-md">
+                                <span class="font-bold text-lg text-red-400">Opposition</span>
+                            </div>
+                            <div class="flex-grow h-1 bg-gray-600 mx-4"></div>
+                            <div class="text-center p-4 border-2 border-blue-400 rounded-lg shadow-lg">
+                                <span class="font-bold text-xl text-white">Resolution</span>
+                            </div>
+                            <div class="flex-grow h-1 bg-gray-600 mx-4"></div>
+                            <div class="text-center p-4 bg-gray-700 rounded-lg shadow-md">
+                                <span class="font-bold text-lg text-green-400">Affirmative</span>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-6 mt-8 max-w-4xl w-full">
+                            <div class="bg-gray-700 p-6 rounded-lg">
+                                <h3 class="font-semibold text-lg text-white mb-2">Definition</h3>
+                                <p class="text-gray-300 text-sm">A formal and structured argument between opposing sides on a predetermined topic, known as a resolution.</p>
+                            </div>
+                            <div class="bg-gray-700 p-6 rounded-lg">
+                                <h3 class="font-semibold text-lg text-white mb-2">Goal</h3>
+                                <p class="text-gray-300 text-sm">To persuade a neutral third party (a judge or audience) using logic, evidence, and clear communication.</p>
+                            </div>
+                            <div class="bg-gray-700 p-6 rounded-lg">
+                                <h3 class="font-semibold text-lg text-white mb-2">Process</h3>
+                                <p class="text-gray-300 text-sm">A regulated contest of ideas that trains participants to analyze complex issues, construct coherent arguments, and engage respectfully.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 4: Key Players
+            {
+                content: `
+                    <div class="w-full flex flex-col p-12">
+                        <h2 class="text-4xl font-bold text-blue-400 mb-8 text-center">The Key Players in a Debate</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-gray-700 p-6 rounded-lg flex items-start space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400 flex-shrink-0 mt-1"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                <div>
+                                    <h3 class="font-semibold text-xl text-white">The Resolution (or Motion)</h3>
+                                    <p class="text-gray-300 mt-1">The statement the debate is about. It's carefully worded to be debatable.</p>
+                                    <p class="mt-2 text-sm text-blue-300 bg-gray-800 p-2 rounded"><strong>Example:</strong> "This House believes that artificial intelligence will create more jobs than it eliminates."</p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-700 p-6 rounded-lg flex items-start space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 flex-shrink-0 mt-1"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                                <div>
+                                    <h3 class="font-semibold text-xl text-green-400">The Affirmative (or Government)</h3>
+                                    <p class="text-gray-300 mt-1">The side that agrees with the resolution. They have the "burden of proof" and must present a compelling case.</p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-700 p-6 rounded-lg flex items-start space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-400 flex-shrink-0 mt-1"><path d="M5 12h14"/></svg>
+                                <div>
+                                    <h3 class="font-semibold text-xl text-red-400">The Negative (or Opposition)</h3>
+                                    <p class="text-gray-300 mt-1">The side that disagrees with the resolution. Their primary role is to dismantle the Affirmative's case through rebuttal.</p>
+                                </div>
+                            </div>
+                            <div class="bg-gray-700 p-6 rounded-lg flex items-start space-x-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-400 flex-shrink-0 mt-1"><path d="m9 18 6-6-6-6"/><path d="m15 18 6-6-6-6"/></svg>
+                                <div>
+                                    <h3 class="font-semibold text-xl text-yellow-400">The Judge (or Adjudicator)</h3>
+                                    <p class="text-gray-300 mt-1">The impartial evaluator who decides the winner based on the strength of the arguments, not personal opinion.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+             // Slide 5: Structure of a Round
+            {
+                content: `
+                    <div class="w-full flex flex-col p-8 md:p-12 items-center overflow-y-auto">
+                        <h2 class="text-3xl md:text-4xl font-bold text-blue-400 mb-6 text-center">Typical Debate Round (Simplified)</h2>
+                        <div class="w-full max-w-4xl space-y-3 text-gray-200 text-sm md:text-base">
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg text-white mb-2">1. Opening Statements</h3>
+                                <p class="ml-4"><span class="text-green-400 font-semibold">Team 1 (Affirmative):</span> Defines the topic and states their stance.</p>
+                                <p class="ml-4"><span class="text-red-400 font-semibold">Team 2 (Negative):</span> Briefly outlines their counter-position.</p>
+                            </div>
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg text-white mb-2">2. First Argument Round</h3>
+                                <p class="ml-4"><span class="text-green-400 font-semibold">Team 1:</span> Presents Argument #1 (with evidence and reasoning).</p>
+                                <p class="ml-4"><span class="text-red-400 font-semibold">Team 2:</span> Rebuts that argument immediately after.</p>
+                            </div>
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg text-white mb-2">3. Second Argument Round</h3>
+                                <p class="ml-4"><span class="text-red-400 font-semibold">Team 2:</span> Presents their Argument #1 (main constructive point).</p>
+                                <p class="ml-4"><span class="text-green-400 font-semibold">Team 1:</span> Rebuts that argument right after.</p>
+                            </div>
+                             <div class="bg-gray-700 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg text-white mb-2">4. Third Argument Round (if used)</h3>
+                                <p class="ml-4">Team 1 presents Argument #2, Team 2 rebuts. Then Team 2 gives their last argument, and Team 1 rebuts. Sides alternate until all main points are made.</p>
+                            </div>
+                            <div class="bg-gray-700 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg text-white mb-2">5. Closing Statements</h3>
+                                <p class="ml-4"><span class="text-green-400 font-semibold">Team 1 (Affirmative):</span> Sums up their key points and why they’ve won.</p>
+                                <p class="ml-4"><span class="text-red-400 font-semibold">Team 2 (Negative):</span> Does the same, focusing on rebuttal strength.</p>
+                            </div>
+                        </div>
+                         <div class="mt-4 text-center text-sm bg-gray-900 p-2 rounded-lg w-full max-w-4xl text-blue-300">
+                            <strong>Flow:</strong> Opening → Arg 1 (T1) + Rebut (T2) → Arg 1 (T2) + Rebut (T1) → Arg 2 (T1) + Rebut (T2) → Arg 2 (T2) + Rebut (T1) → Closings
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 6: Anatomy of an Argument
+            {
+                content: `
+                    <div class="w-full flex flex-col p-12 items-center">
+                        <h2 class="text-4xl font-bold text-blue-400 mb-8">The Anatomy of an Argument</h2>
+                        <div class="relative w-full max-w-3xl p-8 bg-gray-700 rounded-lg text-center">
+                            <h3 class="text-3xl font-bold text-white mb-8">Claim</h3>
+                            <p class="text-gray-300 text-lg">The clear, concise assertion you are making.</p>
+                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 w-px h-8 bg-blue-400"></div>
+                        </div>
+                        <div class="flex w-full max-w-4xl mt-16 space-x-6">
+                            <div class="relative w-1/3 p-6 bg-gray-700 rounded-lg text-center">
+                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 w-px h-8 bg-blue-400"></div>
+                                <h4 class="text-xl font-semibold text-blue-300 mb-2">Warrant</h4>
+                                <p class="text-sm text-gray-300">A brief explanation of your evidence, including its source.</p>
+                            </div>
+                            <div class="relative w-1/3 p-6 bg-gray-700 rounded-lg text-center">
+                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 w-px h-8 bg-blue-400"></div>
+                                <h4 class="text-xl font-semibold text-blue-300 mb-2">Evidence</h4>
+                                <p class="text-sm text-gray-300">Information that validates your claim (statistic, expert opinion, etc.).</p>
+                            </div>
+                             <div class="relative w-1/3 p-6 bg-blue-600 rounded-lg text-center ring-2 ring-blue-400">
+                                <div class="absolute bottom-full left-1/2 -translate-x-1/2 w-px h-8 bg-blue-400"></div>
+                                <h4 class="text-xl font-semibold text-white mb-2">Inference</h4>
+                                <p class="text-sm text-gray-100">Explanation of how the evidence proves the claim. <span class="font-bold">This is the most important part.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 7: Activity 1
+            {
+                content: `
+                    <div class="w-full flex flex-col p-12">
+                        <div class="flex items-center justify-center mb-6">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400 mr-4"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <h2 class="text-4xl font-bold text-blue-400">Activity #1 - Deconstruct the Argument</h2>
+                        </div>
+                        <div class="text-center mb-6">
+                            <p class="text-gray-300"><span class="font-bold">Task:</span> Read the argument and identify the four parts. <span class="font-bold text-yellow-400 ml-4">Time: 5 minutes</span></p>
+                        </div>
+                        <div class="bg-gray-700 p-6 rounded-lg mb-6">
+                            <p class="text-gray-200 leading-relaxed">"Our school should implement a four-day school week because it improves academic performance. A 2019 study in the Journal of Educational Psychology looked at rural districts in the US that switched to a four-day model and found a significant increase in student scores in math and reading. This demonstrates that a compressed schedule allows for more rested and focused students, leading directly to better learning outcomes."</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div><label class="font-semibold text-blue-300">Claim:</label><textarea class="w-full mt-1 h-16"></textarea></div>
+                            <div><label class="font-semibold text-blue-300">Warrant:</label><textarea class="w-full mt-1 h-16"></textarea></div>
+                            <div><label class="font-semibold text-blue-300">Evidence:</label><textarea class="w-full mt-1 h-16"></textarea></div>
+                            <div><label class="font-semibold text-blue-300">Inference:</label><textarea class="w-full mt-1 h-16"></textarea></div>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 8: Art of Rebuttal
+            {
+                content: `
+                    <div class="w-full grid md:grid-cols-2 gap-12 items-center p-12">
+                        <div class="flex items-center justify-center">
+                            <div class="relative w-64 h-64">
+                                <svg class="absolute text-yellow-400 h-24 w-24 top-0 left-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                <svg class="absolute text-blue-400 h-64 w-64" viewBox="0 0 24 24" fill="currentColor" ><path d="M12 2L2 6.5V12c0 4.8 4.3 9 10 9s10-4.2 10-9V6.5L12 2z"></path></svg>
+                                <span class="absolute text-red-500 font-bold text-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rotate-45">BLOCKED</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="text-4xl font-bold text-blue-400">The Art of Rebuttal</h2>
+                            <p class="text-lg text-gray-300 mb-6">Engaging with the Other Side</p>
+                            <div class="mb-4">
+                                <p><span class="font-bold text-green-400">What it Is:</span> Directly refuting an opponent's argument by attacking their reasoning or evidence.</p>
+                                <p><span class="font-bold text-red-400">What it Is Not:</span> Simply disagreeing ("That's not true") or ignoring their point.</p>
+                            </div>
+                            <div class="space-y-3 mt-6 border-l-4 border-blue-500 pl-4">
+                                <p><span class="font-semibold text-white">1. Identify:</span> "My opponent argued that..."</p>
+                                <p><span class="font-semibold text-white">2. Explain:</span> "Their reasoning was..."</p>
+                                <p><span class="font-semibold text-white">3. Respond:</span> "However, this is flawed because..."</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 9: Activity 2
+            {
+                content: `
+                    <div class="w-full flex flex-col p-12">
+                        <div class="flex items-center justify-center mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400 mr-4"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M3 10h14"></path><path d="M3 6h14"></path></svg>
+                            <h2 class="text-4xl font-bold text-blue-400">Activity #2 - Build a Rebuttal</h2>
+                        </div>
+                        <div class="text-center mb-6">
+                            <p class="text-gray-300"><span class="font-bold">Task:</span> Use the three-step framework to create a short rebuttal. <span class="font-bold text-yellow-400 ml-4">Time: 5 minutes</span></p>
+                        </div>
+                        <div class="bg-gray-700 p-6 rounded-lg mb-6">
+                             <h4 class="font-semibold text-lg text-white mb-2">Argument to Rebut:</h4>
+                            <p class="text-gray-200 leading-relaxed">"Social media should be banned for anyone under 16 because it is a waste of time that could be spent on homework or outdoor activities."</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div><label class="font-semibold text-blue-300">Identify: "My opponent argued that..."</label><textarea class="w-full mt-1 h-16"></textarea></div>
+                            <div><label class="font-semibold text-blue-300">Explain: "Their reasoning was..."</label><textarea class="w-full mt-1 h-16"></textarea></div>
+                            <div><label class="font-semibold text-blue-300">Respond: "However, this is flawed because..."</label><textarea class="w-full mt-1 h-20"></textarea></div>
+                        </div>
+                    </div>
+                `
+            },
+             // Slide 10: Debate Formats
+            {
+                content: `
+                    <div class="w-full grid md:grid-cols-2 gap-12 items-center p-12">
+                        <div class="flex flex-col justify-center">
+                            <h2 class="text-4xl font-bold text-blue-400 mb-6">A Brief Look at Debate Formats</h2>
+                            <p class="text-lg text-gray-300 mb-4"><span class="font-bold text-white">The Core Skills are Universal:</span> The argument structure and rebuttal are the foundation for all debate styles.</p>
+                            <p class="text-lg text-gray-300 mb-6"><span class="font-bold text-white">Formats Change the Rules:</span> Different formats are like different sports played with the same ball. They change players, times, and dynamics.</p>
+                             <div class="space-y-2 mt-4 text-gray-200">
+                                <p><strong class="text-yellow-400">Canadian National (CNDF):</strong> Two-on-two format.</p>
+                                <p><strong class="text-yellow-400">British Parliamentary (BP):</strong> Four teams of two.</p>
+                                <p><strong class="text-yellow-400">World Schools (WSDC):</strong> Three-on-three format.</p>
+                                <p><strong class="text-yellow-400">Lincoln-Douglas (LD):</strong> One-on-one format.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center relative">
+                            <svg class="w-full h-auto text-gray-700" viewBox="0 0 800 400" fill="currentColor">
+                                <path d="M789 257C796 232 800 206 800 179c0-99-81-179-179-179-80 0-148 53-171 125C401 127 304 63 194 63 87 63 0 150 0 257c0 23 4 45 11 66h778zM11 268c-6 20-9 41-9 63h796c0-22-3-43-9-63H11z"/>
+                            </svg>
+                            <div class="absolute w-4 h-4 bg-red-500 rounded-full" style="top: 45%; left: 20%;"></div> <!-- Canada -->
+                            <div class="absolute w-4 h-4 bg-red-500 rounded-full" style="top: 35%; left: 48%;"></div> <!-- UK -->
+                            <div class="absolute w-4 h-4 bg-red-500 rounded-full" style="top: 40%; left: 23%;"></div> <!-- US -->
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 11: Final Task
+            {
+                content: `
+                    <div class="w-full flex flex-col items-center justify-center p-12 text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400 mb-4"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <h2 class="text-4xl font-bold text-blue-400 mb-6">Final Task: Build Your Argument</h2>
+                        <div class="bg-gray-700 p-6 rounded-lg mb-6 w-full max-w-3xl">
+                             <h4 class="font-semibold text-lg text-white mb-2">The Resolution:</h4>
+                            <p class="text-blue-300 text-xl leading-relaxed">"This House believes that artificial intelligence will create more jobs than it eliminates."</p>
+                        </div>
+                        <div class="text-left w-full max-w-3xl space-y-3 text-gray-300">
+                             <p><strong class="text-white">1.</strong> Break into larger groups (Government or Opposition).</p>
+                             <p><strong class="text-white">2.</strong> Develop one complete argument using the C-W-E-I structure.</p>
+                             <p><strong class="text-white">3.</strong> You will have <span class="font-bold text-yellow-400">15 minutes</span> to prepare.</p>
+                             <p><strong class="text-white">4.</strong> Each group will select one speaker to present the argument in <span class="font-bold text-yellow-400">2 minutes</span>.</p>
+                        </div>
+                    </div>
+                `
+            },
+            // Slide 12: Q&A
+            {
+                content: `
+                    <div class="w-full flex flex-col items-center justify-center text-center p-8">
+                        <h1 class="text-8xl font-bold text-blue-400 tracking-tight">Q&A</h1>
+                        <p class="mt-8 text-2xl text-gray-300">Any questions?</p>
+                        <div class="mt-24 border-t border-gray-600 w-1/2 pt-8">
+                            <p class="text-xl text-gray-400">
+                                <span class="font-semibold text-white">Aarwin, Sonal, Sapna & Nandika, your Co-Presidents</span>
+                            </p>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        let currentSlide = 0;
+        const presentationContainer = document.getElementById('presentation-container');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slide-counter');
+
+        function renderSlides() {
+            presentationContainer.innerHTML = '';
+            slidesData.forEach((slide, index) => {
+                const slideEl = document.createElement('div');
+                slideEl.className = 'slide w-full h-full flex-col items-center justify-center p-4';
+                if (index === currentSlide) {
+                    slideEl.classList.add('active', 'fade-in');
+                }
+                slideEl.innerHTML = slide.content;
+                presentationContainer.appendChild(slideEl);
+            });
+            updateNav();
+        }
+
+        function updateNav() {
+            slideCounter.textContent = `Slide ${currentSlide + 1} / ${slidesData.length}`;
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slidesData.length - 1;
+        }
+        
+        function showSlide(index) {
+            // Remove active and fade-in from all
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active', 'fade-in'));
+            
+            const slides = document.querySelectorAll('.slide');
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                // We re-add fade-in to trigger the animation
+                setTimeout(() => slides[index].classList.add('fade-in'), 10);
+            }
+            updateNav();
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slidesData.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextBtn.click();
+            } else if (e.key === 'ArrowLeft') {
+                prevBtn.click();
+            }
+        });
+
+        // Initial render
+        renderSlides();
+
+    </script>
+</body>
+</html>
+
+
+
