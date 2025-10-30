@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,13 +49,13 @@
     <!-- Navigation -->
     <div class="w-full max-w-5xl mt-4 flex justify-between items-center">
         <button id="prevBtn" class="bg-gray-700 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">Previous</button>
-        <div id="slide-counter" class="text-gray-400 text-sm font-medium">Slide 1 / 12</div>
+        <div id="slide-counter" class="text-gray-400 text-sm font-medium">Slide 1 / 9</div>
         <button id="nextBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed">Next</button>
     </div>
 
     <script>
         const slidesData = [
-            // Slide 1: Title
+            // Slide 1: Title (Original Slide 1)
             {
                 content: `
                     <div class="w-full flex flex-col items-center justify-center text-center p-8">
@@ -73,7 +73,7 @@
                     </div>
                 `
             },
-            // Slide 2: Why We Debate
+            // Slide 2: Why We Debate (Original Slide 2)
             {
                 content: `
                     <div class="w-full grid md:grid-cols-2 gap-8 items-center p-12">
@@ -91,118 +91,32 @@
                     </div>
                 `
             },
-            // Slide 3: What is a Formal Debate?
+            // Slide 3: NEW LEAD-IN SLIDE
             {
                 content: `
                     <div class="w-full flex flex-col items-center justify-center text-center p-12">
-                        <h2 class="text-4xl font-bold text-blue-400 mb-8">What is a Formal Debate?</h2>
-                        <div class="flex items-center justify-center w-full my-8">
-                            <div class="text-center p-4 bg-gray-700 rounded-lg shadow-md">
-                                <span class="font-bold text-lg text-red-400">Opposition</span>
+                        <h2 class="text-4xl font-bold text-blue-400 mb-8">From Opinion to Argument</h2>
+                        <div class="w-full max-w-4xl grid md:grid-cols-2 gap-8">
+                            <div class="bg-gray-700 p-8 rounded-lg">
+                                <h3 class="text-2xl font-semibold text-red-400 mb-4">Just an Opinion</h3>
+                                <p class="text-gray-300 text-lg">"Social media is harmful."</p>
+                                <p class="text-gray-400 mt-4 text-sm">(This is just an assertion. It has no support and can't be debated.)</p>
                             </div>
-                            <div class="flex-grow h-1 bg-gray-600 mx-4"></div>
-                            <div class="text-center p-4 border-2 border-blue-400 rounded-lg shadow-lg">
-                                <span class="font-bold text-xl text-white">Resolution</span>
-                            </div>
-                            <div class="flex-grow h-1 bg-gray-600 mx-4"></div>
-                            <div class="text-center p-4 bg-gray-700 rounded-lg shadow-md">
-                                <span class="font-bold text-lg text-green-400">Affirmative</span>
-                            </div>
-                        </div>
-                        <div class="grid md:grid-cols-3 gap-6 mt-8 max-w-4xl w-full">
-                            <div class="bg-gray-700 p-6 rounded-lg">
-                                <h3 class="font-semibold text-lg text-white mb-2">Definition</h3>
-                                <p class="text-gray-300 text-sm">A formal and structured argument between opposing sides on a predetermined topic, known as a resolution.</p>
-                            </div>
-                            <div class="bg-gray-700 p-6 rounded-lg">
-                                <h3 class="font-semibold text-lg text-white mb-2">Goal</h3>
-                                <p class="text-gray-300 text-sm">To persuade a neutral third party (a judge or audience) using logic, evidence, and clear communication.</p>
-                            </div>
-                            <div class="bg-gray-700 p-6 rounded-lg">
-                                <h3 class="font-semibold text-lg text-white mb-2">Process</h3>
-                                <p class="text-gray-300 text-sm">A regulated contest of ideas that trains participants to analyze complex issues, construct coherent arguments, and engage respectfully.</p>
+                            <div class="bg-gray-700 p-8 rounded-lg border-2 border-blue-400">
+                                <h3 class="text-2xl font-semibold text-green-400 mb-4">A Structured Argument</h3>
+                                <p class="text-gray-300 text-lg">"Social media is harmful *because* it is linked to poor mental health in teens."</p>
+                                <p class="text-gray-400 mt-4 text-sm">(This is a claim with a *reason*. It can be proven or disproven.)</p>
                             </div>
                         </div>
+                        <p class="mt-12 text-xl text-gray-200 max-w-3xl">
+                            A debate isn't won with the strongest opinion. It's won by the side with the best-supported <span class="font-bold text-white">structure</span>.
+                            <br><br>
+                            Let's break down that structure.
+                        </p>
                     </div>
                 `
             },
-            // Slide 4: Key Players
-            {
-                content: `
-                    <div class="w-full flex flex-col p-12">
-                        <h2 class="text-4xl font-bold text-blue-400 mb-8 text-center">The Key Players in a Debate</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="bg-gray-700 p-6 rounded-lg flex items-start space-x-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400 flex-shrink-0 mt-1"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                                <div>
-                                    <h3 class="font-semibold text-xl text-white">The Resolution (or Motion)</h3>
-                                    <p class="text-gray-300 mt-1">The statement the debate is about. It's carefully worded to be debatable.</p>
-                                    <p class="mt-2 text-sm text-blue-300 bg-gray-800 p-2 rounded"><strong>Example:</strong> "This House believes that artificial intelligence will create more jobs than it eliminates."</p>
-                                </div>
-                            </div>
-                            <div class="bg-gray-700 p-6 rounded-lg flex items-start space-x-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 flex-shrink-0 mt-1"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
-                                <div>
-                                    <h3 class="font-semibold text-xl text-green-400">The Affirmative (or Government)</h3>
-                                    <p class="text-gray-300 mt-1">The side that agrees with the resolution. They have the "burden of proof" and must present a compelling case.</p>
-                                </div>
-                            </div>
-                            <div class="bg-gray-700 p-6 rounded-lg flex items-start space-x-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-400 flex-shrink-0 mt-1"><path d="M5 12h14"/></svg>
-                                <div>
-                                    <h3 class="font-semibold text-xl text-red-400">The Negative (or Opposition)</h3>
-                                    <p class="text-gray-300 mt-1">The side that disagrees with the resolution. Their primary role is to dismantle the Affirmative's case through rebuttal.</p>
-                                </div>
-                            </div>
-                            <div class="bg-gray-700 p-6 rounded-lg flex items-start space-x-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-400 flex-shrink-0 mt-1"><path d="m9 18 6-6-6-6"/><path d="m15 18 6-6-6-6"/></svg>
-                                <div>
-                                    <h3 class="font-semibold text-xl text-yellow-400">The Judge (or Adjudicator)</h3>
-                                    <p class="text-gray-300 mt-1">The impartial evaluator who decides the winner based on the strength of the arguments, not personal opinion.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `
-            },
-             // Slide 5: Structure of a Round
-            {
-                content: `
-                    <div class="w-full flex flex-col p-8 md:p-12 items-center overflow-y-auto">
-                        <h2 class="text-3xl md:text-4xl font-bold text-blue-400 mb-6 text-center">Typical Debate Round (Simplified)</h2>
-                        <div class="w-full max-w-4xl space-y-3 text-gray-200 text-sm md:text-base">
-                            <div class="bg-gray-700 p-4 rounded-lg">
-                                <h3 class="font-bold text-lg text-white mb-2">1. Opening Statements</h3>
-                                <p class="ml-4"><span class="text-green-400 font-semibold">Team 1 (Affirmative):</span> Defines the topic and states their stance.</p>
-                                <p class="ml-4"><span class="text-red-400 font-semibold">Team 2 (Negative):</span> Briefly outlines their counter-position.</p>
-                            </div>
-                            <div class="bg-gray-700 p-4 rounded-lg">
-                                <h3 class="font-bold text-lg text-white mb-2">2. First Argument Round</h3>
-                                <p class="ml-4"><span class="text-green-400 font-semibold">Team 1:</span> Presents Argument #1 (with evidence and reasoning).</p>
-                                <p class="ml-4"><span class="text-red-400 font-semibold">Team 2:</span> Rebuts that argument immediately after.</p>
-                            </div>
-                            <div class="bg-gray-700 p-4 rounded-lg">
-                                <h3 class="font-bold text-lg text-white mb-2">3. Second Argument Round</h3>
-                                <p class="ml-4"><span class="text-red-400 font-semibold">Team 2:</span> Presents their Argument #1 (main constructive point).</p>
-                                <p class="ml-4"><span class="text-green-400 font-semibold">Team 1:</span> Rebuts that argument right after.</p>
-                            </div>
-                             <div class="bg-gray-700 p-4 rounded-lg">
-                                <h3 class="font-bold text-lg text-white mb-2">4. Third Argument Round (if used)</h3>
-                                <p class="ml-4">Team 1 presents Argument #2, Team 2 rebuts. Then Team 2 gives their last argument, and Team 1 rebuts. Sides alternate until all main points are made.</p>
-                            </div>
-                            <div class="bg-gray-700 p-4 rounded-lg">
-                                <h3 class="font-bold text-lg text-white mb-2">5. Closing Statements</h3>
-                                <p class="ml-4"><span class="text-green-400 font-semibold">Team 1 (Affirmative):</span> Sums up their key points and why they’ve won.</p>
-                                <p class="ml-4"><span class="text-red-400 font-semibold">Team 2 (Negative):</span> Does the same, focusing on rebuttal strength.</p>
-                            </div>
-                        </div>
-                         <div class="mt-4 text-center text-sm bg-gray-900 p-2 rounded-lg w-full max-w-4xl text-blue-300">
-                            <strong>Flow:</strong> Opening → Arg 1 (T1) + Rebut (T2) → Arg 1 (T2) + Rebut (T1) → Arg 2 (T1) + Rebut (T2) → Arg 2 (T2) + Rebut (T1) → Closings
-                        </div>
-                    </div>
-                `
-            },
-            // Slide 6: Anatomy of an Argument
+            // Slide 4: Anatomy of an Argument (Original Slide 6)
             {
                 content: `
                     <div class="w-full flex flex-col p-12 items-center">
@@ -232,7 +146,7 @@
                     </div>
                 `
             },
-            // Slide 7: Activity 1
+            // Slide 5: Activity 1 (Original Slide 7)
             {
                 content: `
                     <div class="w-full flex flex-col p-12">
@@ -255,7 +169,7 @@
                     </div>
                 `
             },
-            // Slide 8: Art of Rebuttal
+            // Slide 6: Art of Rebuttal (Original Slide 8)
             {
                 content: `
                     <div class="w-full grid md:grid-cols-2 gap-12 items-center p-12">
@@ -282,7 +196,7 @@
                     </div>
                 `
             },
-            // Slide 9: Activity 2
+            // Slide 7: Activity 2 (Original Slide 9)
             {
                 content: `
                     <div class="w-full flex flex-col p-12">
@@ -305,33 +219,7 @@
                     </div>
                 `
             },
-             // Slide 10: Debate Formats
-            {
-                content: `
-                    <div class="w-full grid md:grid-cols-2 gap-12 items-center p-12">
-                        <div class="flex flex-col justify-center">
-                            <h2 class="text-4xl font-bold text-blue-400 mb-6">A Brief Look at Debate Formats</h2>
-                            <p class="text-lg text-gray-300 mb-4"><span class="font-bold text-white">The Core Skills are Universal:</span> The argument structure and rebuttal are the foundation for all debate styles.</p>
-                            <p class="text-lg text-gray-300 mb-6"><span class="font-bold text-white">Formats Change the Rules:</span> Different formats are like different sports played with the same ball. They change players, times, and dynamics.</p>
-                             <div class="space-y-2 mt-4 text-gray-200">
-                                <p><strong class="text-yellow-400">Canadian National (CNDF):</strong> Two-on-two format.</p>
-                                <p><strong class="text-yellow-400">British Parliamentary (BP):</strong> Four teams of two.</p>
-                                <p><strong class="text-yellow-400">World Schools (WSDC):</strong> Three-on-three format.</p>
-                                <p><strong class="text-yellow-400">Lincoln-Douglas (LD):</strong> One-on-one format.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-center relative">
-                            <svg class="w-full h-auto text-gray-700" viewBox="0 0 800 400" fill="currentColor">
-                                <path d="M789 257C796 232 800 206 800 179c0-99-81-179-179-179-80 0-148 53-171 125C401 127 304 63 194 63 87 63 0 150 0 257c0 23 4 45 11 66h778zM11 268c-6 20-9 41-9 63h796c0-22-3-43-9-63H11z"/>
-                            </svg>
-                            <div class="absolute w-4 h-4 bg-red-500 rounded-full" style="top: 45%; left: 20%;"></div> <!-- Canada -->
-                            <div class="absolute w-4 h-4 bg-red-500 rounded-full" style="top: 35%; left: 48%;"></div> <!-- UK -->
-                            <div class="absolute w-4 h-4 bg-red-500 rounded-full" style="top: 40%; left: 23%;"></div> <!-- US -->
-                        </div>
-                    </div>
-                `
-            },
-            // Slide 11: Final Task
+            // Slide 8: Final Task (Original Slide 11)
             {
                 content: `
                     <div class="w-full flex flex-col items-center justify-center p-12 text-center">
@@ -343,20 +231,20 @@
                         </div>
                         <div class="text-left w-full max-w-3xl space-y-3 text-gray-300">
                              <p><strong class="text-white">1.</strong> Break into larger groups (Government or Opposition).</p>
-                             <p><strong class_work="text-white">2.</strong> Develop one complete argument using the C-W-E-I structure.</p>
+                             <p><strong class="text-white">2.</strong> Develop one complete argument using the C-W-E-I structure.</p>
                              <p><strong class="text-white">3.</strong> You will have <span class="font-bold text-yellow-400">15 minutes</span> to prepare.</p>
                              <p><strong class="text-white">4.</strong> Each group will select one speaker to present the argument in <span class="font-bold text-yellow-400">2 minutes</span>.</p>
                         </div>
                     </div>
                 `
             },
-            // Slide 12: Q&A
+            // Slide 9: Q&A (Original Slide 12)
             {
                 content: `
                     <div class="w-full flex flex-col items-center justify-center text-center p-8">
                         <h1 class="text-8xl font-bold text-blue-400 tracking-tight">Q&A</h1>
                         <p class="mt-8 text-2xl text-gray-300">Any questions?</p>
-                        <div class="mt-24 border-t border-gray-600 w-12 pt-8">
+                        <div class="mt-24 border-t border-gray-600 w-1/2 pt-8">
                             <p class="text-xl text-gray-400">
                                 <span class="font-semibold text-white">Aarwin, Sonal, Sapna & Nandika, your Co-Presidents</span>
                             </p>
@@ -433,3 +321,5 @@
     </script>
 </body>
 </html>
+
+
